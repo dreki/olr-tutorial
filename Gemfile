@@ -43,3 +43,12 @@ group :test, :development do
     gem 'webrat'
     gem 'rspec-rails', '~> 2.6'
 end
+
+group :test do
+  gem 'capybara', '1.1.2'
+end
+
+group :production do
+  # Needed by Heroku.
+  gem 'pg', '0.12.2'
+end
