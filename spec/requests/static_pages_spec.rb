@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe "StaticPages" do
+  
+  let(:base_title) { "One Line Reviews" }
+  
   describe "GET home page" do
     it "should have the content 'One Line Reviews'" do
       visit '/static_pages/home'
@@ -10,7 +13,7 @@ describe "StaticPages" do
     it "should have the correct title" do
       visit '/static_pages/home'
       page.should have_selector('title',
-        text: "One Line Reviews | Home")
+        text: "#{base_title} | Home")
     end
   end
 
@@ -23,7 +26,7 @@ describe "StaticPages" do
     it "should have the correct title" do
       visit '/static_pages/help'
       page.should have_selector('title',
-        text: "One Line Reviews | Help")
+        text: "#{base_title} | Help")
     end
   end
 
@@ -36,7 +39,7 @@ describe "StaticPages" do
     it "should have the correct title" do
       visit '/static_pages/about'
       page.should have_selector('title',
-        text: "One Line Reviews | About Us")
+        text: "#{base_title} | About Us")
     end
   end
 end
