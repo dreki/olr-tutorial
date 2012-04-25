@@ -13,7 +13,8 @@ require 'spec_helper'
 describe User do
 
   before do
-    @user = User.new email: 'test.user@gmail.com'
+    @user = User.new email: 'test.user@gmail.com',
+      password: 'kraplox', password_confirmation: 'kraplox'
     # @user.save
   end
 
@@ -21,6 +22,9 @@ describe User do
 
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
+  it { should respond_to(:password) }
+  it { should respond_to(:password_confirmation) }
+  it { should respond_to(:authenticate) }
 
   it { should be_valid }
 
@@ -72,6 +76,41 @@ describe User do
     end
 
     it { should_not be_valid }
+  end
+
+  describe "with no password" do
+    before { @user.password = @user.password_confirmation = '' }
+    it { should_not be_valid }
+  end
+
+  describe "with nil password confirmation" do
+    before { @user.password_confirmation = nil }
+    it { should_not be_valid }
+  end
+
+  describe "return value of authenticate" do
+    before { @user.save }
+    let(:found_user) { User.find_by_email(@user.email) }
+
+    describe "with valid password" do
+      it { should == found_user.authenticate(@user.password) }
+    end
+
+    describe "with invalid password" do
+      let(:user_for_invalid_password) { found_user.authenticate("fart") }
+
+      it { should_not == user_for_invalid_password }
+      specify { user_for_invalid_password.should be_false }
+    end
+  end
+
+  describe "with password that's too short" do
+    let(:user_with_short_pw) do
+      User.new email: 'another@gmail.com',
+        password: 'frax', password_confirmation: 'frax'
+    end
+
+    specify { user_with_short_pw.should be_invalid }
   end
 
 end
