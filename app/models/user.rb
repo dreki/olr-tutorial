@@ -9,7 +9,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email
+  attr_accessible :email, :password_digest
 
   EMAIL_REGEX = /\A\S+@\S+\.\S+\z/
   validates :email, presence: true, format: EMAIL_REGEX,
