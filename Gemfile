@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
 
+gem 'bcrypt-ruby', '3.0.1'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -35,7 +37,8 @@ gem 'jquery-rails', '2.0.0'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development do
-  gem 'sqlite3', '1.3.5'  
+  gem 'sqlite3', '1.3.5'
+  gem 'annotate', '~> 2.4.1.beta'
 end
 
 group :test, :development do
@@ -47,7 +50,7 @@ group :test do
   gem 'capybara', '1.1.2'
   gem 'guard-spork', '0.3.2'
   gem 'spork', '0.9.0'
-  
+
   # OS X-dependent.
   gem 'rb-fsevent', '0.4.3.1', :require => false
   gem 'growl', '1.0.3'
